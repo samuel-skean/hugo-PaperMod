@@ -1,3 +1,10 @@
+# Samuel Skean's Changes:
+I do not intend to maintain this fork for anyone's use but mine.
+I have made the appearance (dark/light) of the page respond to changes in the system/browser setting without a page reload, but removed (or tried to remove) the ability to control it with a toggle.
+As of now, some code responding to the site parameters `defaultTheme` and `disableThemeToggle` still remain. Ideally I would panic if these site parameters were set inconsistently with what is supported in this fork, but I haven't done that yet. I've added a TODO in `TODO.md` about that.
+I have not updated *any* documentation other than this file and `TODO.md` (which is entirely my own addition) with these changes.
+
+
 <h1 align=center>Hugo PaperMod | <a href="https://adityatelange.github.io/hugo-PaperMod/" rel="nofollow">Demo</a></h1>
 
 <h4 align=center>☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive</h4>
