@@ -89,11 +89,26 @@
 {{- end }}
 {{- end -}}
 
-{{- /* Favicons */}}
-<link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
-<link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}">
+{{- /* Single Source of Truth Favicon Logic */ -}}
+{{- $source := resources.Get "images/favicon.png" -}}
+
+{{- if $source -}}
+    {{- /* Generate processed versions */ -}}
+    {{- $fav16 := $source.Resize "16x16" -}}
+    {{- $fav32 := $source.Resize "32x32" -}}
+    {{- $apple := $source.Resize "180x180" -}}
+
+    {{- /* Output Links */ -}}
+    <link rel="icon" href="{{ $fav32.RelPermalink }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ $fav16.RelPermalink }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ $fav32.RelPermalink }}">
+    <link rel="apple-touch-icon" href="{{ $apple.RelPermalink }}">
+{{- else -}}
+    {{- /* Fallback if the file is missing from assets/images/ */ -}}
+    <link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
+{{- end -}}
+
+{{- /* Keep the SVG and colors as they are usually separate or static */ -}}
 <link rel="mask-icon" href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
 <meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
 <meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
